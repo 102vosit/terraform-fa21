@@ -62,6 +62,12 @@ resource "aws_route_table" "private_route_table" {
   }
 }
 
+# # Main Route Table association
+# resource "aws_main_route_table_association" "c" {
+#   vpc_id         = aws_vpc.main.id
+#   route_table_id = aws_route_table.private_route_table.id
+# }
+
 # Route Table association with Public Subnet
 resource "aws_route_table_association" "a" {
   subnet_id      = aws_subnet.public_subnet.id
