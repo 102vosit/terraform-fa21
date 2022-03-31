@@ -8,8 +8,8 @@ resource "aws_vpc" "main" {
 
 # Create Public Subnet
 resource "aws_subnet" "public_subnet" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = var.pub_subnet_cidr
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.pub_subnet_cidr
   availability_zone = var.av_zones.1
   tags = {
     Name = "Public Subnet"
@@ -18,8 +18,8 @@ resource "aws_subnet" "public_subnet" {
 
 # Create Private Subnet
 resource "aws_subnet" "private_subnet" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = var.prv_subnet_cidr
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.prv_subnet_cidr
   availability_zone = var.av_zones.2
   tags = {
     Name = "Private Subnet"
@@ -31,6 +31,15 @@ resource "aws_internet_gateway" "internet_gateway" {
   vpc_id = aws_vpc.main.id
   tags = {
     Name = "Internet Gateway"
+  }
+}
+
+# NAT Gateway
+resource "aws_nat_gateway" "nat_gateway" {
+  connectivity_type = "private"
+  subnet_id         = aws_subnet.private_subnet.id
+  tags = {
+    Name = "NAT Gateway"
   }
 }
 
@@ -54,7 +63,7 @@ resource "aws_route_table" "private_route_table" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.internet_gateway.id
+    gateway_id = aws_nat_gateway.nat_gateway.id
   }
 
   tags = {
@@ -62,11 +71,11 @@ resource "aws_route_table" "private_route_table" {
   }
 }
 
-# # Main Route Table association
-# resource "aws_main_route_table_association" "c" {
-#   vpc_id         = aws_vpc.main.id
-#   route_table_id = aws_route_table.private_route_table.id
-# }
+# Main Route Table association
+resource "aws_main_route_table_association" "c" {
+  vpc_id         = aws_vpc.main.id
+  route_table_id = aws_route_table.private_route_table.id
+}
 
 # Route Table association with Public Subnet
 resource "aws_route_table_association" "a" {
