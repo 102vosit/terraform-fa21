@@ -7,7 +7,7 @@
 ```mermaid
 graph TD;
 
-terraform-fa21-->IAM;
-terraform-fa21-->VPC;
-terraform-fa21-->EC2;
+terraform-fa21-->IAM/;
+terraform-fa21-->VPC/;
+terraform-fa21-->EC2/;
 ```
