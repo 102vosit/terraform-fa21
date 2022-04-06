@@ -1,34 +1,79 @@
-provider "aws" {
-  region = "us-east-1"
-}
-
-resource "aws_subnet" "public_subnet" {
-  vpc_id     = aws_vpc.dev_vpc.id
-  cidr_block = var.cidr_blocks.1
+# Creating main vpc
+resource "aws_vpc" "main" {
+  cidr_block = var.vpc_cidr
   tags = {
-    Name = "Public-Subnet-${var.tags}" # Public-Subnet-DEV
+    "Name" = "${var.tag}-VPC"
   }
 }
 
-resource "aws_subnet" "private_subnet" {
-  vpc_id     = aws_vpc.dev_vpc.id
-  cidr_block = var.cidr_blocks.2
+# Creating subnets
+resource "aws_subnet" "public_subnet_one" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = var.subnet_cidr.0
   tags = {
-    Name = "Private-Subnet-${var.tags}" # Private-Subnet-DEV
+    "Name" = "${var.tag}-Public-Subnet-One"
   }
 }
 
-resource "aws_vpc" "dev_vpc" {
-  cidr_block = var.cidr_blocks.0
+# Creating subnets
+resource "aws_subnet" "public_subnet_two" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = var.subnet_cidr.1
   tags = {
-    Name = "VPC-${var.tags}" # VPC-DEV
+    "Name" = "${var.tag}-Public-Subnet-Two"
   }
 }
 
-variable "cidr_blocks" {
-  type = list(any)
+# Creating subnets
+resource "aws_subnet" "public_subnet_three" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = var.subnet_cidr.2
+  tags = {
+    "Name" = "${var.tag}-Public-Subnet-Three"
+  }
 }
 
-variable "tags" {
-  type = string
+# Creating subnets
+resource "aws_subnet" "public_subnet_four" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = var.subnet_cidr.3
+  tags = {
+    "Name" = "${var.tag}-Public-Subnet-Four"
+  }
+}
+
+# Creating subnets
+resource "aws_subnet" "private_subnet_one" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = var.subnet_cidr.4
+  tags = {
+    "Name" = "${var.tag}-Private-Subnet-One"
+  }
+}
+
+# Creating subnets
+resource "aws_subnet" "private_subnet_two" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = var.subnet_cidr.5
+  tags = {
+    "Name" = "${var.tag}-Private-Subnet-Two"
+  }
+}
+
+# Creating subnets
+resource "aws_subnet" "private_subnet_three" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = var.subnet_cidr.6
+  tags = {
+    "Name" = "${var.tag}-Private-Subnet-Three"
+  }
+}
+
+# Creating subnets
+resource "aws_subnet" "private_subnet_four" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = var.subnet_cidr.7
+  tags = {
+    "Name" = "${var.tag}-Private-Subnet-Four"
+  }
 }
