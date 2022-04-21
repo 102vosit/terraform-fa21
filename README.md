@@ -3,6 +3,8 @@
 1) IAM resources
 2) VPC resources
 3) EC2 resources
+4) FUNCTIONS
+5) study-ss
 
 ```mermaid
 graph TD;
