@@ -6,11 +6,6 @@ resource "aws_instance" "dev" {
     "Name" = "web-server"
   }
 }
-
-variable "subnet_id" {
-  type = string
-}
-
 variable "ami_id" {
   type = string
 }
