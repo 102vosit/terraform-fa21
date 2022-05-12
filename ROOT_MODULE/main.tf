@@ -8,8 +8,8 @@ module "vpc" {
 }
 
 module "ec2" {
-  source        = "git::https://github.com/102vosit/terraform-fa21.git//EC2"
-  subnet_id     = module.vpc.aws_subnet.ids
+  source        = "git@github.com:102vosit/terraform-fa21.git//EC2"
+  subnet_id     = module.vpc.subnet_pub_id
   ami_id        = "ami-0c02fb55956c7d316"
-  instance_type = "t3.micro"
+  instance_type = "t2.micro"
 }
